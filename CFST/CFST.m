@@ -1,48 +1,49 @@
-%%%%±¾³ÌÐò¹¦ÄÜÎª¼ÆËã¸Ö¹Ü»ìÄýÍÁÖùÑ¹Íä³ÐÔØÁ¦%%%%
-%%%¼ÆËã¼ÙÉè¼°²Î¿¼±¾¹¹Ö÷ÒªÀ´×Ô¡¶¸Ö¹Ü»ìÄýÍÁ¡·º«ÁÖº£µÈ%%%
-%%%ÊÔÑéÊý¾ÝÎª¡¶Experimental studies on the ultimate moment of concrete filled square steel¡·
-%%%ºÍ¡¶Elasto-plastic behavior of concrete filled square steel tubular beam-columns¡·
-%%%ÖÐµÄ¢ó-2¡£
-%%%²ÎÊýÊäÈë%%%
-%%%ÎÞÌØÊâËµÃ÷£¬ÒÔÏÂ³¤¶Èµ¥Î»Îªmm£¬Ç¿¶Èµ¥Î»ÎªMpa¡£
+%%%%æœ¬ç¨‹åºåŠŸèƒ½ä¸ºè®¡ç®—é’¢ç®¡æ··å‡åœŸæŸ±åŽ‹å¼¯æ‰¿è½½åŠ›%%%%
+%%%Calculating the compressive and bending bearing capacity of CFST columns using fiber element method%%
+%%%è®¡ç®—å‡è®¾åŠå‚è€ƒæœ¬æž„ä¸»è¦æ¥è‡ªã€Šé’¢ç®¡æ··å‡åœŸã€‹éŸ©æž—æµ·ç­‰%%%
+%%%è¯•éªŒæ•°æ®ä¸ºã€ŠExperimental studies on the ultimate moment of concrete filled square steelã€‹
+%%%å’Œã€ŠElasto-plastic behavior of concrete filled square steel tubular beam-columnsã€‹
+%%%ä¸­çš„â…¢-2ã€‚
+%%%å‚æ•°è¾“å…¥%%%
+%%%æ— ç‰¹æ®Šè¯´æ˜Žï¼Œä»¥ä¸‹é•¿åº¦å•ä½ä¸ºmmï¼Œå¼ºåº¦å•ä½ä¸ºMpaã€‚
 clear;
 clc;
-%%%%¼¸ºÎ³ß´ç²ÎÊý
-B=100;  %½ØÃæ¿í¶È
-H=B;    %½ØÃæ¸ß¶È
-t=2.98; %¸Ö°åºñ¶È
-b=B-2*t;     %ºËÐÄ»ìÄýÍÁ½ØÃæ¿í¶È
-h=H-2*t;    %ºËÐÄ»ìÄýÍÁ½ØÃæ¸ß¶È
-as1=H-1.5*t;   %ÊÜÀ­²à¸Ö°åÐÎÐÄÖÁºËÐÄ»ìÄýÍÁÊÜÑ¹±ßÔµ¾àÀë
-as2=0.5*t;      %ÊÜÑ¹²à¸Ö°åÐÎÐÄÖÁºËÐÄ»ìÄýÍÁÊÜÑ¹±ßÔµ¾àÀë
-Ast=B*t;    %ÊÜÀ­¸Ö¹Üµ×°å½ØÃæÃæ»ý
-Asc=B*t;    %ÊÜÑ¹¸Ö¹Üµ×°å½ØÃæÃæ»ý
-Ac=b*h;     %ºËÐÄ»ìÄýÍÁ½ØÃæÃæ»ý
-As=Asc+Ast+(H-2*t)*t*2;%¸Ö¹Ü½ØÃæÃæ»ý
-%%%%²ÄÁÏ²ÎÊý
+%%%%å‡ ä½•å°ºå¯¸å‚æ•°
+B=100;  %æˆªé¢å®½åº¦
+H=B;    %æˆªé¢é«˜åº¦
+t=2.98; %é’¢æ¿åŽšåº¦
+b=B-2*t;     %æ ¸å¿ƒæ··å‡åœŸæˆªé¢å®½åº¦
+h=H-2*t;    %æ ¸å¿ƒæ··å‡åœŸæˆªé¢é«˜åº¦
+as1=H-1.5*t;   %å—æ‹‰ä¾§é’¢æ¿å½¢å¿ƒè‡³æ ¸å¿ƒæ··å‡åœŸå—åŽ‹è¾¹ç¼˜è·ç¦»
+as2=0.5*t;      %å—åŽ‹ä¾§é’¢æ¿å½¢å¿ƒè‡³æ ¸å¿ƒæ··å‡åœŸå—åŽ‹è¾¹ç¼˜è·ç¦»
+Ast=B*t;    %å—æ‹‰é’¢ç®¡åº•æ¿æˆªé¢é¢ç§¯
+Asc=B*t;    %å—åŽ‹é’¢ç®¡åº•æ¿æˆªé¢é¢ç§¯
+Ac=b*h;     %æ ¸å¿ƒæ··å‡åœŸæˆªé¢é¢ç§¯
+As=Asc+Ast+(H-2*t)*t*2;%é’¢ç®¡æˆªé¢é¢ç§¯
+%%%%ææ–™å‚æ•°
 global fc fys Es ecu Ac As;
-fc=26.5;        %»ìÄýÍÁÖáÐÄ¿¹Ñ¹Ç¿¶È
-fys=289;        %¸Ö²ÄÇü·þÇ¿¶È
-Es=215000;      %¸Ö²Äµ¯ÐÔÄ£Á¿
-eys=fys/Es;     %¸Ö²ÄÇü·þÓ¦±ä
-ecu=0.015;       %ÊÜÑ¹¼«ÏÞÓ¦±ä
-n=60;           %½ØÃæ»®·ÖÌõ´ø¸öÊý
-N0=520000;      %ÖùÖáÏò³ÐÔØÁ¦
-Nk=0.2*N0;       %×ÜÖáÑ¹Á¦
+fc=26.5;        %æ··å‡åœŸè½´å¿ƒæŠ—åŽ‹å¼ºåº¦
+fys=289;        %é’¢æå±ˆæœå¼ºåº¦
+Es=215000;      %é’¢æå¼¹æ€§æ¨¡é‡
+eys=fys/Es;     %é’¢æå±ˆæœåº”å˜
+ecu=0.015;       %å—åŽ‹æžé™åº”å˜
+n=60;           %æˆªé¢åˆ’åˆ†æ¡å¸¦ä¸ªæ•°
+N0=520000;      %æŸ±è½´å‘æ‰¿è½½åŠ›
+Nk=0.2*N0;       %æ€»è½´åŽ‹åŠ›
 
-%%%%ÅÐ¶ÏÖáÁ¦ºÏÀíÐÔ
-Nky=hntbg(eys)*Ac+ggbg(eys)*As;%¸Ö²ÄÇü·þÈ¡ÎªÖù×ÓÇü·þ£¬´Ë¼´ÎªÇü·þÖáÁ¦
+%%%%åˆ¤æ–­è½´åŠ›åˆç†æ€§
+Nky=hntbg(eys)*Ac+ggbg(eys)*As;%é’¢æå±ˆæœå–ä¸ºæŸ±å­å±ˆæœï¼Œæ­¤å³ä¸ºå±ˆæœè½´åŠ›
 if Nk>=Nky
-    disp('×ÜÖáÁ¦¹ý´ó');
+    disp('æ€»è½´åŠ›è¿‡å¤§');
     return
 end
 
-%%%%³õÊ¼ÖáÏòÑ¹Ó¦±ä£¬¶þ·Ö·¨
+%%%%åˆå§‹è½´å‘åŽ‹åº”å˜ï¼ŒäºŒåˆ†æ³•
 ecdie1=0;
 ecdie2=Nk/Nky*eys;
 ec0=0;
 Nkg1=0;
-%%%%%Çó½âÖáÁ¦ÏÂµÄÊÜÑ¹²à³õÊ¼Ó¦±ä
+%%%%%æ±‚è§£è½´åŠ›ä¸‹çš„å—åŽ‹ä¾§åˆå§‹åº”å˜
 while abs(Nkg1-Nk)>(0.001*Nk+1)
     ec0=(ecdie1+ecdie2)/2;
     Nkg1=hntbg(ec0)*Ac+ggbg(ec0)*As;
@@ -53,43 +54,43 @@ while abs(Nkg1-Nk)>(0.001*Nk+1)
     end
 end
 
-%%%%ÇúÂÊ¿ØÖÆ¼ÓÔØµÄ¿ØÖÆ²ÎÊý
+%%%%æ›²çŽ‡æŽ§åˆ¶åŠ è½½çš„æŽ§åˆ¶å‚æ•°
 phi(1)=0;
 phiy=2.5*eys/H;
 dphi=phiy/25;
 m(1)=0;
 x0(1)=0;
-ec=ec0;     %ÔÝÊ±µÈÓÚ³õÊ¼Ñ¹Ó¦±ä£¬Èç¹û²»±ä³ÌÐò¾ÍÓÐÎÊÌâ
+ec=ec0;     %æš‚æ—¶ç­‰äºŽåˆå§‹åŽ‹åº”å˜ï¼Œå¦‚æžœä¸å˜ç¨‹åºå°±æœ‰é—®é¢˜
 times=2;
-%%%%ÇúÂÊ¿ØÖÆ¼ÓÔØ£¬Ã¿´Î´óÑ­»·Ôö¼ÓÒ»¸öÇúÂÊ²½³¤£¬Ó¦±ä´ïµ½¼«ÏÞÑ¹Ó¦±ä×÷ÎªÍË³öÌõ¼þ
+%%%%æ›²çŽ‡æŽ§åˆ¶åŠ è½½ï¼Œæ¯æ¬¡å¤§å¾ªçŽ¯å¢žåŠ ä¸€ä¸ªæ›²çŽ‡æ­¥é•¿ï¼Œåº”å˜è¾¾åˆ°æžé™åŽ‹åº”å˜ä½œä¸ºé€€å‡ºæ¡ä»¶
 while ec-ecu<=-0.01*ecu
     ec1=ec0;
     ec2=ecu;
     phi(times)=phi(times-1)+dphi;
     Ns=0;
-    %%%ÀûÓÃÖáÁ¦Çó½âÓ¦±ä£¬Ð¡Ñ­»·£¬Çó½âÃ¿²½ÇúÂÊÏÂ¶ÔÓ¦µÄÍä¾Ø
+    %%%åˆ©ç”¨è½´åŠ›æ±‚è§£åº”å˜ï¼Œå°å¾ªçŽ¯ï¼Œæ±‚è§£æ¯æ­¥æ›²çŽ‡ä¸‹å¯¹åº”çš„å¼¯çŸ©
     while (abs(Ns-Nk)>Nk*0.001+1)||(ec1==0&&ec2==ecu)
         ec=(ec1+ec2)/2;
         esc=ec+phi(times)*as2;
         est=ec-phi(times)*as1;
-        %ÊÜÑ¹¸Ö°å
-        Nsc=ggbg(esc)*Asc;%ÊÜÑ¹¸Ö°åÖáÁ¦
-        Myc=Nsc*(H/2-as2);%ÊÜÑ¹¸Ö°åÍä¾Ø
-        %ÊÜÀ­¸Ö°å
+        %å—åŽ‹é’¢æ¿
+        Nsc=ggbg(esc)*Asc;%å—åŽ‹é’¢æ¿è½´åŠ›
+        Myc=Nsc*(H/2-as2);%å—åŽ‹é’¢æ¿å¼¯çŸ©
+        %å—æ‹‰é’¢æ¿
         Nst=ggbg(est)*Ast;
-        Myt=Nst*(H/2-as1);%´Ë´¦ÎªÕýÍä¾Ø£¬Òò´ËÁ½¸ö¸ºÊýÏà³Ë
-        %»ìÄýÍÁ²úÉúµÄÖáÁ¦Íä¾Ø
+        Myt=Nst*(H/2-as1);%æ­¤å¤„ä¸ºæ­£å¼¯çŸ©ï¼Œå› æ­¤ä¸¤ä¸ªè´Ÿæ•°ç›¸ä¹˜
+        %æ··å‡åœŸäº§ç”Ÿçš„è½´åŠ›å¼¯çŸ©
        Nc1=0;
        Mc1=0;
        for i=1:1:n
            dx=h/n;
-           xi=i*dx-dx/2;%Ìõ´øÐÎÐÄÖÁ±ßÔµ¾àÀë
-           eci=ec-phi(times)*xi;%µÚiÌõ´øµÄÓ¦±ä
-           stressci=hntbg(eci);%µÚiÌõ´øµÄÓ¦Á¦
+           xi=i*dx-dx/2;%æ¡å¸¦å½¢å¿ƒè‡³è¾¹ç¼˜è·ç¦»
+           eci=ec-phi(times)*xi;%ç¬¬iæ¡å¸¦çš„åº”å˜
+           stressci=hntbg(eci);%ç¬¬iæ¡å¸¦çš„åº”åŠ›
            Nc1=Nc1+stressci*b*dx;
            Mc1=Mc1+stressci*b*dx*(h/2-xi);
        end
-       %¸Ö¹ÜÖÐ¼ä¶Î²úÉúµÄÖáÁ¦ºÍÍä¾Ø
+       %é’¢ç®¡ä¸­é—´æ®µäº§ç”Ÿçš„è½´åŠ›å’Œå¼¯çŸ©
        Ns1=0;
        Ms1=0;
        for i=1:n
@@ -107,21 +108,21 @@ while ec-ecu<=-0.01*ecu
            ec1=ec;
        end
     end
-    m(times)=Myc+Myt+Mc1+Ms1;%¼ÇÂ¼Ã¿Ò»²½ÇúÂÊÏÂµÄÍä¾Ø
+    m(times)=Myc+Myt+Mc1+Ms1;%è®°å½•æ¯ä¸€æ­¥æ›²çŽ‡ä¸‹çš„å¼¯çŸ©
     m(times)=m(times)/1e5;
-    x0(times)=ec/phi(times);%¼ÆËãÊÜÑ¹Çø¸ß¶È
+    x0(times)=ec/phi(times);%è®¡ç®—å—åŽ‹åŒºé«˜åº¦
     Ns0(times)=Ns;
     times=times+1;
     
 end
-%%%%%»æ³ö´ËÖáÁ¦ÏÂµÄÍä¾ØÇúÂÊ¹ØÏµÇúÏß%%%%%
+%%%%%ç»˜å‡ºæ­¤è½´åŠ›ä¸‹çš„å¼¯çŸ©æ›²çŽ‡å…³ç³»æ›²çº¿%%%%%
 phi=phi*1e3;
 plot(phi/10,m);
-title('¾ØÐÎ¸Ö¹Ü»ìÄýÍÁ½ØÃæÔÚÖáÁ¦×÷ÓÃÏÂµÄÍä¾ØÇúÂÊ¹ØÏµ');
-xlabel('ÇúÂÊ¦Õ/m-1');
-ylabel('Íä¾Ø£¨KN*m£©');
-y=[phi;m]';%%phi£¬M²ÎÊý±ãÓÚÈ¡Öµ
-%%%%%%½áÊø%%%%%%
+title('çŸ©å½¢é’¢ç®¡æ··å‡åœŸæˆªé¢åœ¨è½´åŠ›ä½œç”¨ä¸‹çš„å¼¯çŸ©æ›²çŽ‡å…³ç³»');
+xlabel('æ›²çŽ‡Ï†/m-1');
+ylabel('å¼¯çŸ©ï¼ˆKN*mï¼‰');
+y=[phi;m]';%%phiï¼ŒMå‚æ•°ä¾¿äºŽå–å€¼
+%%%%%%ç»“æŸ%%%%%%
     
            
         
