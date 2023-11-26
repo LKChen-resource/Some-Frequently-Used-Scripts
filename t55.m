@@ -1,29 +1,31 @@
 clear;
 clc;
-%µ¼ÈëexcelÊı¾İ
-filename=xlsread('0.55.xlsx','Sheet1');%ÎÄ¼şÃû£¬±íÃû³Æ
-fl=[0,2.1,4.3,8.6,17.2,30.1,43];%Î§Ñ¹
-num1=length(fl);%Ñ­»·´ÎÊı
+%This script converts the axial strain volume strain relationship in the paper into an axial stress lateral strain relationship,
+%and interpolates as well smooths the data
+%å¯¼å…¥excelæ•°æ®
+filename=xlsread('0.55.xlsx','Sheet1');%æ–‡ä»¶åï¼Œè¡¨åç§°
+fl=[0,2.1,4.3,8.6,17.2,30.1,43];%å›´å‹
+num1=length(fl);%å¾ªç¯æ¬¡æ•°
 for j=0:num1-1
 %j=6
  ec=0;
  fc=0;
  ec2=0;
  vl=0;
-%·Ö±ğÖáÏòÓ¦±ä-ÖáÏòÓ¦Á¦£¬ÖáÏòÓ¦±ä-Ìå»ıÓ¦±ä
+%åˆ†åˆ«è½´å‘åº”å˜-è½´å‘åº”åŠ›ï¼Œè½´å‘åº”å˜-ä½“ç§¯åº”å˜
 ec=filename(:,1+j*6);
-ec(isnan(ec(:,1))==1)=[];%É¾³ınan
+ec(isnan(ec(:,1))==1)=[];%åˆ é™¤nan
 fc=filename(:,2+j*6);
-fc(isnan(fc(:,1))==1)=[];%É¾³ınan
+fc(isnan(fc(:,1))==1)=[];%åˆ é™¤nan
 
 ec2=filename(:,3+j*6);
 ec2(isnan(ec2(:,1))==1)=[];
 vl=filename(:,4+j*6);
 vl(isnan(vl(:,1))==1)=[];
-%Êı¾İ´¦ÀíÊ±£¬¼ÇµÃ¼ÓÖáÏòÓ¦±äµÄ¸ººÅ
+%æ•°æ®å¤„ç†æ—¶ï¼Œè®°å¾—åŠ è½´å‘åº”å˜çš„è´Ÿå·
 el=(vl+ec2)/2;
 
-%¾ùÔÈ²åÖµ
+%å‡åŒ€æ’å€¼
 %num=floor(max(ec)/0.0002)
 ec_AI=0:0.0002:max(ec);
 fc_AI=interp1(ec,fc,ec_AI,'linear');
@@ -34,7 +36,7 @@ el_AI=interp1(ec2,el,ec2_AI,'linear');
 %plot(ec2,el,'o');
 %plot(ec2_AI,el_AI,'o');
 
-%¹ØÁª²àÏòÓ¦±äÓëÖáÏòÓ¦Á¦
+%å…³è”ä¾§å‘åº”å˜ä¸è½´å‘åº”åŠ›
 num=min(length(ec_AI),length(ec2_AI));
 for i=1: num
     result(i,1+j*3)=fc_AI(i);
