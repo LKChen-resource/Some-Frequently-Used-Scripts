@@ -2,6 +2,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+##this script is used by the fifth chapter of my master's thesis to find the optimization
+##particle swarm optimization
+##the inertia weight factor was modified.
 def fit_fun(X):  # 适应函数
     #粒子X=[混凝土强度序号，钢管强度序号，D，t]
     Y=[0,0,0,0]
